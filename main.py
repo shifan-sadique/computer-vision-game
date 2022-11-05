@@ -43,11 +43,13 @@ def set_screen():
             if y_posr<=-700:
                 y_posr=700
                 y_posb=y_posb-4
-                screen.blit(xposr,y_posr)
+                screen.blit(red,(xposr,y_posr))
+                screen.blit(blue,(xposb,y_posb))
             elif y_posb<=-700:
                 y_posb=700
                 y_posr=y_posr-4
-                screen.blit(xposb,y_posb)
+                screen.blit(blue,(xposb,y_posb))
+                screen.blit(red,(xposr,y_posr))
 
             xposb=random.randint(0,700)
             xposr=random.randint(0,700)
@@ -59,10 +61,7 @@ def set_screen():
         pygame.display.update()
         clock.tick(30)
 
-def balloon(xpos,ypos,colorflag):
 
-    if colorflag==0:
-    else:
 
 
 def print_hi(name):
