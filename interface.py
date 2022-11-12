@@ -1,9 +1,9 @@
 import pygame
 import random
+import cv2
 from sys import exit
 pygame.init()
 screen=pygame.display.set_mode((1400,700))
-
 class balloon:
     def __init__(self,color):
         self.color=color
@@ -56,7 +56,6 @@ def set_screen():
                 y_posr=y_posr-4
                 screen.blit(b,(xposb,y_posb))
                 screen.blit(r,(xposr,y_posr))
-
             # xposb=random.randint(0,700)
             # xposr=random.randint(0,700)
 

@@ -8,9 +8,12 @@ from multiprocessing.connection import wait
 
 
 # Press the green button in the gutter to run the script.
+import balloonhit
 import interface
+import cv2
 
 if __name__ == '__main__':
-    interface.set_screen()
+    #interface.set_screen()
+    balloonhit.findballoon()
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
