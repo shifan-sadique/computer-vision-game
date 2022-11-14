@@ -1,14 +1,23 @@
 import numpy
 import cv2
+import pygame
 import numpy as np
 
 def detectscreen():
-    img=cv2.imread("balloon.png")
-    findballoons(img)
+    img=cv2.imread("ball2.png")
+    scale_percent = 60# percent of original size
+    width = int(img.shape[1] * scale_percent / 100)
+    height = int(img.shape[0] * scale_percent / 100)
+    dim = (width, height)
+
+# resize image
+    resized = cv2.resize(img, dim, interpolation = cv2.INTER_AREA)
+
+    findballoons(resized)
 
 def findballoons(img):
     preProcess(img)
-    #return img
+    return img,img
 
 def findcontours(img):
     h,w= img.shape
@@ -37,4 +46,3 @@ def preProcess(img):
     # imcontour=img.copy()
     cv2.imshow("image",im)
     cv2.waitKey(0)
-detectscreen()
