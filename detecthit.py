@@ -4,7 +4,7 @@ from balloonhit import *
 
 
 def detectHit(img,bbox):
-    imgBalloonList=splitBalloons(img,bbox)
+    imgBalloonList=list(splitBalloons(img,bbox))
     showballoons(imgBalloonList)
     return img
 

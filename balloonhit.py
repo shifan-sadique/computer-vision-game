@@ -4,8 +4,9 @@ import pygame
 import numpy as np
 
 def detectscreen():
-    img=cv2.imread("ball2.png")
-    scale_percent = 60# percent of original size
+    img=cv2.imread("ball1.png")
+    scale_percent = 60
+    # percent of original size
     width = int(img.shape[1] * scale_percent / 100)
     height = int(img.shape[0] * scale_percent / 100)
     dim = (width, height)
@@ -22,19 +23,34 @@ def findballoons(img):
 def findcontours(img):
     h,w= img.shape
     imgContours=np.zeros((w,h),np.uint8)
-    contours,hierarchy=cv2.findContours(img,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_NONE)
+    contours,hierarchy=cv2.findContours(img,cv2.RETR_CCOMP,cv2.CHAIN_APPROX_NONE)
     cv2.drawContours(imgContours,contours,-1,(255,0,255),2)
+    ballooncoord=[]
+    ballcoord=[]
     try: hierarchy = hierarchy[0]
     except: hierarchy = []
 
     # computes the bounding box for the contour, and draws it on the frame,
     for contour, hier in zip(contours, hierarchy):
+        i=0
         (x,y,w,h) = cv2.boundingRect(contour)
-        if w > 80 and h > 80:
+        if w > 80 and h > 80 and w<200 and h<200:
             cv2.rectangle(imgContours, (x,y), (x+w,y+h), (255, 0, 0), 2)
-            print(x,y)
+            ballcoord=[x,y,x+w,y+h]
 
+        elif w>200 and h>200:
+            cv2.rectangle(imgContours, (x,y), (x+w,y+h), (255, 0, 0), 2)
+            ballooncoord=[x,y,x+w,y+h]
+            if ballcoord[0] in range(ballooncoord[0],ballooncoord[2]) and ballcoord[1] in range(ballooncoord[1],ballooncoord[3]):
+                print(1)
+                break
+            else:
+                print(0)
+        # if s==1:
+        #     break
     #cv2.imshow('Motion Detector',imgContours)
+    print(ballcoord)
+    print(ballooncoord)
     return imgContours
 
 def preProcess(img):
@@ -46,3 +62,9 @@ def preProcess(img):
     # imcontour=img.copy()
     cv2.imshow("image",im)
     cv2.waitKey(0)
+
+def score(ballooncoord,ballcoord):
+    if ballcoord[0] in range(ballooncoord[0],ballooncoord[2]) and ballcoord[1] in range(ballooncoord[1],ballooncoord[3]):
+        return 1
+    else:
+        return 0

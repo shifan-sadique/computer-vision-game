@@ -16,7 +16,7 @@ import cv2
 if __name__ == '__main__':
     #interface.set_screen()
     #balloonhit.detectscreen()
-    img=cv2.imread("ball1.png")
+    img=cv2.imread("ball2.png")
     imgBalloon,bbox=findballoons(img)
     img=detectHit(img,bbox)
     cv2.imshow("imageshow",img)
