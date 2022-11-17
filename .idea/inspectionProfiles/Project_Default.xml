@@ -9,6 +9,7 @@
           <option value="Project.HostelManagement.student.views.student" />
           <option value="HostelManagement.guest.views.warden" />
           <option value="HostelManagement.parent.views.parent" />
+          <option value="cv2" />
         </list>
       </option>
     </inspection_tool>
