@@ -99,7 +99,9 @@ def ballTrack(ball_bbox,ball_center):
     h, w, _ = img.shape
     
     myColorFinder = ColorFinder(False)
-    hsvVals ={'hmin': 11, 'smin': 79, 'vmin': 63, 'hmax': 51, 'smax': 213, 'vmax': 223}
+    # hsvVals ={'hmin': 11, 'smin': 79, 'vmin': 63, 'hmax': 51, 'smax': 213, 'vmax': 223}
+    hsvVals={'hmin': 11, 'smin': 82, 'vmin': 75, 'hmax': 42, 'smax': 205, 'vmax': 192}
+
     image=cv2.imread("ball_yellow.jpg")
 
     while True:

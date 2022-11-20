@@ -17,16 +17,16 @@ class Balloon:
         self.balloon=balloon
         self.h,self.w,_=balloon.shape
 
-pers_values=np.load('pers_values.npy')
+
 
 
 
 
 balloon1 = cv2.imread("images/new.png", cv2.IMREAD_UNCHANGED)
-balloon1 = cv2.resize(balloon1, (0, 0), None, 0.2, 0.2)
+balloon1 = cv2.resize(balloon1, (0, 0), None, 0.5, 0.5)
 
 balloon2 = cv2.imread("images/new1.png", cv2.IMREAD_UNCHANGED)
-balloon2 = cv2.resize(balloon2, (0, 0), None, 0.3, 0.3)
+balloon2 = cv2.resize(balloon2, (0, 0), None, 0.5, 0.5)
 
 balloonList=[]
 balloonList.append(Balloon(balloon1))
@@ -37,7 +37,7 @@ balloonList.append(Balloon(balloon2))
 
 
 pop = cv2.imread("images/pop.png", cv2.IMREAD_UNCHANGED)
-pop = cv2.resize(pop, (0, 0), None, 0.2, 0.2)
+pop = cv2.resize(pop, (0, 0), None, 0.1, 0.1)
 
 
 backGroundImage=np.zeros((window_h,window_w,3),np.uint8)
@@ -154,7 +154,7 @@ def background(ball_bbox,ball_center):
 # process for tracking ball
 def ballTrack(ball_bbox,ball_center):
    
-    cap = cv2.VideoCapture(1)
+    cap = cv2.VideoCapture(2)
     # cap=cv2.flip(cap,1)
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, window_w)
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, window_h)
@@ -166,16 +166,12 @@ def ballTrack(ball_bbox,ball_center):
     # hsvVals ={'hmin': 148, 'smin': 104, 'vmin': 1, 'hmax': 163, 'smax': 231, 'vmax': 217}
     # hsvVals ={'hmin': 17, 'smin': 28, 'vmin': 186, 'hmax': 47, 'smax': 112, 'vmax': 255}
     # hsvVals ={'hmin': 8, 'smin': 88, 'vmin': 51, 'hmax': 25, 'smax': 255, 'vmax': 255}
-    # hsvVals={'hmin': 11, 'smin': 82, 'vmin': 75, 'hmax': 42, 'smax': 205, 'vmax': 192}
-    # hsvVals={'hmin': 21, 'smin': 33, 'vmin': 33, 'hmax': 29, 'smax': 255, 'vmax': 200} #night class
-    hsvVals={'hmin': 4, 'smin': 51, 'vmin': 120, 'hmax': 37, 'smax': 242, 'vmax': 255}
+    hsvVals={'hmin': 11, 'smin': 82, 'vmin': 75, 'hmax': 42, 'smax': 205, 'vmax': 192}
+
 
     while True:
         success, img = cap.read()
-        pts1 = np.float32(pers_values)
-        pts2 = np.float32([[0, 0], [window_w, 0],[0, window_h], [window_w, window_h]])
-        matrix = cv2.getPerspectiveTransform(pts1, pts2)
-        img = cv2.warpPerspective(img, matrix, (window_w, window_h))
+        
         # img=cv2.flip(img,1)
         imgColor, mask = myColorFinder.update(img, hsvVals)
         imgContour, contours = cvzone.findContours(img, mask)
